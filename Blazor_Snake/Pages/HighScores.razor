@@ -1,0 +1,17 @@
+﻿@page "/highScores"
+
+<PageTitle>High scores</PageTitle>
+
+<div class="highScore_menu__container">
+    <h1 class="highScore__title">High Scores</h1>
+    <div class="highScore__container">
+        @for(int i = 0; i < 10; i++)
+        {
+            <div class="highScore__line">
+                <p class="highScore__text">Den</p>
+                <p class="highScore__text">20</p>
+            </div>
+        }
+    </div>
+    <a class="standard__button" href="/">Main menu</a>
+</div>

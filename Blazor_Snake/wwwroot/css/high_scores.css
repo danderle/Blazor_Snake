@@ -1,0 +1,36 @@
+.highScore_menu__container{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: 90vh;
+    min-height: 800px;
+    background-color: black;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: var(--size-base);
+    border-radius: var(--size-base);
+}
+
+.highScore__title {
+    font-size: var(--size-5xl);
+    font-weight: bold;
+}
+
+.highScore__container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--size-base);
+}
+
+.highScore__line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+.highScore__text {
+    text-transform: capitalize;
+    margin: 0 var(--size-6xl);
+    font-size: var(--size-base);
+}
