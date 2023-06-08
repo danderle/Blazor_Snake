@@ -49,6 +49,9 @@ namespace Snake.Core.ViewModels
         [ObservableProperty]
         private int[] rgb;
 
+        [ObservableProperty]
+        private int positionIndex;
+
         #endregion
 
         #region Constructor

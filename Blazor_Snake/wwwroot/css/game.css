@@ -1,0 +1,33 @@
+.game__container {
+    display: grid;
+    grid-template-rows: repeat(40, var(--size-base));
+    grid-template-columns: repeat(40, var(--size-base));
+    justify-content: center;
+    align-content: center;
+    height: 90vh;
+}
+
+.game__fruit_cell {
+    background-color: red;
+    animation-name: fruitPulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.game__empty_cell{
+    background-color: black;
+}
+
+@keyframes fruitPulse{
+    0% {
+        background-color: #220000;
+    }
+
+    50%{
+        background-color: red;
+    }
+
+    100%{
+        background-color: #220000;
+    }
+}

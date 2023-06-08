@@ -15,21 +15,3 @@
     font-size: var(--size-5xl);
     font-weight: bold;
 }
-
-.standard__button {
-    text-align: center;
-    text-decoration: none;
-    border: 3px solid black;
-    border-radius: var(--size-base);
-    padding: var(--size-base);
-    width: 25vh;
-    color: inherit;
-    font-size: var(--size-2xl);
-    font-weight: bold;
-    transition: border-color ease 0.3s;
-}
-
-    .standard__button:hover {
-        color: inherit;
-        border: 3px solid green;
-    }
