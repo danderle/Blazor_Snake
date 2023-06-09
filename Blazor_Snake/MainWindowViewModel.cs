@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using Snake.Core.DataModels;
 using Snake.Core.Models;
 using Snake.Core.ViewModels;
@@ -31,6 +32,7 @@ public partial class MainWindowViewModel : ObservableObject
     #endregion
 
     #region Properties
+    public Action UiUpdateAction;
 
     public int TotalGameGridCells => MAX_GAME_GRID_ROWS * MAX_GAME_GRID_COLUMNS;
 
@@ -86,6 +88,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel()
     {
+        JsInterop.JsKeyUpAction = JsKeyUp;
     }
 
     #endregion
@@ -163,6 +166,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         Snake.Clear();
         var snakeHead = new CellViewModel(200, 200);
+        snakeHead.PositionIndex = 20 + (20 * MAX_GAME_GRID_ROWS);
         snakeHead.Rgb = CellViewModel.SNAKE_HEAD_RGB;
         Snake.Add(snakeHead);
     }
@@ -239,6 +243,43 @@ public partial class MainWindowViewModel : ObservableObject
 
         HighScores = new ObservableCollection<HighScoreViewModel>(highScores);
         HighScoresVisible = true;
+    }
+
+    private void JsKeyUp(int code)
+    {
+        int xPos = 0;
+        int yPos = 0;
+        Direction newDirecton = Direction.LEFT;
+        
+        switch (code)
+        {
+            case 37:
+                if (_currentDirection == Direction.RIGHT && Snake.Count > 2)
+                    return;
+                xPos -= CellViewModel.CELL_SIZE;
+                newDirecton = Direction.LEFT;
+                break;
+            case 38:
+                if (_currentDirection == Direction.DOWN && Snake.Count > 2)
+                    return;
+                yPos -= CellViewModel.CELL_SIZE;
+                newDirecton = Direction.UP;
+                break;
+            case 39:
+                if (_currentDirection == Direction.LEFT && Snake.Count > 2)
+                    return;
+                xPos += CellViewModel.CELL_SIZE;
+                newDirecton = Direction.RIGHT;
+                break;
+            case 40:
+                if (_currentDirection == Direction.UP && Snake.Count > 2)
+                    return;
+                yPos += CellViewModel.CELL_SIZE;
+                newDirecton = Direction.DOWN;
+                break;
+        }
+
+        _nextMoves.Enqueue(new NextMove(xPos, yPos, newDirecton));
     }
 
     /// <summary>
@@ -378,8 +419,11 @@ public partial class MainWindowViewModel : ObservableObject
     {
         for(int index = 0; index < Snake.Count-1; index++)
         {
-            Snake[index].XPos = Snake[index + 1].XPos;
-            Snake[index].YPos = Snake[index + 1].YPos;
+            var xpos = Snake[index + 1].XPos;
+            var ypos = Snake[index + 1].YPos;
+            Snake[index].XPos = xpos;
+            Snake[index].YPos = ypos;
+            Snake[index].PositionIndex = xpos/CellViewModel.CELL_SIZE + (yPos/CellViewModel.CELL_SIZE * MAX_GAME_GRID_ROWS);
         }
 
         int newX = Snake.Last().XPos + xPos;
@@ -405,6 +449,8 @@ public partial class MainWindowViewModel : ObservableObject
 
         Snake.Last().XPos = newX;
         Snake.Last().YPos = newY;
+        Snake.Last().PositionIndex = newX / CellViewModel.CELL_SIZE + (newY / CellViewModel.CELL_SIZE * MAX_GAME_GRID_ROWS);
+        UiUpdateAction?.Invoke();
     }
 
     /// <summary>

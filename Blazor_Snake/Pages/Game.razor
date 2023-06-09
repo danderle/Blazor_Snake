@@ -1,14 +1,20 @@
 ﻿@page "/game"
 @inject MainWindowViewModel Vm;
+@inject IJSRuntime JsRuntime;
 
 <PageTitle>Game</PageTitle>
 
 <div class="game__container">
     @for(int i = 0; i < Vm.TotalGameGridCells; i++)
     {
+        var snake = Vm.Snake.FirstOrDefault(item => item.PositionIndex == i);
         if(Vm.Fruit.PositionIndex == i)
         {
             <div class="game__fruit_cell"></div>
+        }
+        else if(snake != null)
+        {
+            <div class="game__snake_head"></div>
         }
         else
         {
@@ -21,6 +27,22 @@
     protected override async Task OnInitializedAsync()
     {
         Vm.Play();
-        await Task.Delay(1);
+        Vm.UiUpdateAction = Update;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("JsFunctions.addKeyboardListenersEvent");
+        }
+    }
+
+    private void Update()
+    {
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
     }
 }

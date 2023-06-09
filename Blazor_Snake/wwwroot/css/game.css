@@ -14,6 +14,10 @@
     animation-iteration-count: infinite;
 }
 
+.game__snake_head{
+    background-color: blue;
+}
+
 .game__empty_cell{
     background-color: black;
 }
