@@ -32,6 +32,9 @@ public partial class MainWindowViewModel : ObservableObject
     #endregion
 
     #region Properties
+
+    public CancellationTokenSource Cancellation { get; } = new CancellationTokenSource();
+
     public Action UiUpdateAction;
 
     public int TotalGameGridCells => MAX_GAME_GRID_ROWS * MAX_GAME_GRID_COLUMNS;
@@ -176,7 +179,7 @@ public partial class MainWindowViewModel : ObservableObject
     /// </summary>
     private void GameLoop()
     {
-        while (!GameOver)
+        while (!GameOver && !Cancellation.Token.IsCancellationRequested)
         {
             Thread.Sleep(_snakeSpeed);
 
@@ -197,6 +200,12 @@ public partial class MainWindowViewModel : ObservableObject
             }
 
             CheckIfFruitEaten();
+        }
+
+        if (Cancellation.Token.IsCancellationRequested)
+        {
+            Cancellation.Dispose();
+            return;
         }
 
         var highScores = LoadHighScores(true);
@@ -419,11 +428,9 @@ public partial class MainWindowViewModel : ObservableObject
     {
         for(int index = 0; index < Snake.Count-1; index++)
         {
-            var xpos = Snake[index + 1].XPos;
-            var ypos = Snake[index + 1].YPos;
-            Snake[index].XPos = xpos;
-            Snake[index].YPos = ypos;
-            Snake[index].PositionIndex = xpos/CellViewModel.CELL_SIZE + (yPos/CellViewModel.CELL_SIZE * MAX_GAME_GRID_ROWS);
+            Snake[index].XPos = Snake[index + 1].XPos;
+            Snake[index].YPos = Snake[index + 1].YPos;
+            Snake[index].PositionIndex = Snake[index + 1].PositionIndex;
         }
 
         int newX = Snake.Last().XPos + xPos;

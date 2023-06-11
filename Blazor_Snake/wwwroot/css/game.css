@@ -18,6 +18,18 @@
     background-color: blue;
 }
 
+.game__snake_body1 {
+    background-color: green;
+}
+
+.game__snake_body2 {
+    background-color: lime;
+}
+
+.game__snake_body3 {
+    background-color: lawngreen;
+}
+
 .game__empty_cell{
     background-color: black;
 }

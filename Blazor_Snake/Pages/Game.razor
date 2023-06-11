@@ -1,6 +1,9 @@
 ﻿@page "/game"
+@using Snake.Core.ViewModels;
 @inject MainWindowViewModel Vm;
 @inject IJSRuntime JsRuntime;
+@implements IDisposable;
+
 
 <PageTitle>Game</PageTitle>
 
@@ -14,7 +17,22 @@
         }
         else if(snake != null)
         {
-            <div class="game__snake_head"></div>
+            if(snake.Rgb == CellViewModel.SNAKE_HEAD_RGB)
+            {
+                <div class="game__snake_head"></div>
+            }
+            else if(snake.Rgb == CellViewModel.SNAKE_BODY1_RGB)
+            {
+                <div class="game__snake_body1"></div>
+            }
+            else if(snake.Rgb == CellViewModel.SNAKE_BODY2_RGB)
+            {
+                <div class="game__snake_body2"></div>
+            }
+            else
+            {
+                <div class="game__snake_body3"></div>
+            }
         }
         else
         {
@@ -44,5 +62,10 @@
         {
             StateHasChanged();
         });
+    }
+
+    public void Dispose()
+    {
+        Vm.Cancellation.Cancel();
     }
 }
