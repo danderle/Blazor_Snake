@@ -3,6 +3,7 @@
     justify-items: center;
     align-items: center;
     height: 90vh;
+    min-height: 800px;
     width: 80%;
     max-width: 50rem;
     margin: 0 auto;

@@ -1,4 +1,4 @@
-.highScore_menu__container{
+.highScore_menu__container {
     display: grid;
     justify-items: center;
     align-items: center;
@@ -6,6 +6,7 @@
     min-height: 800px;
     background-color: black;
     width: 80%;
+    max-width: 50rem;
     margin: 0 auto;
     margin-top: var(--size-base);
     border-radius: var(--size-base);

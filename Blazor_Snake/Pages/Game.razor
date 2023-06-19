@@ -1,6 +1,7 @@
 ﻿@page "/game"
 @using Snake.Core.ViewModels;
 @inject MainWindowViewModel Vm;
+@inject NavigationManager NavManager;
 @inject IJSRuntime JsRuntime;
 @implements IDisposable;
 
@@ -46,6 +47,7 @@
     {
         Vm.Play();
         Vm.UiUpdateAction = Update;
+        Vm.GameoverAction = () => NavManager.NavigateTo("/highScores");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

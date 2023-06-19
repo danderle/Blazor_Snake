@@ -36,6 +36,7 @@ public partial class MainWindowViewModel : ObservableObject
     public CancellationTokenSource Cancellation { get; } = new CancellationTokenSource();
 
     public Action UiUpdateAction;
+    public Action GameoverAction;
 
     public int TotalGameGridCells => MAX_GAME_GRID_ROWS * MAX_GAME_GRID_COLUMNS;
 
@@ -145,11 +146,11 @@ public partial class MainWindowViewModel : ObservableObject
     private List<HighScoreViewModel> LoadHighScores(bool withZeros = false)
     {
         var highScores = new List<HighScoreViewModel>();
-        var jsonString = File.ReadAllText(HIGH_SCORES_PATH);
-        if (!string.IsNullOrEmpty(jsonString))
-        {
-            highScores = JsonSerializer.Deserialize<List<HighScoreViewModel>>(jsonString);
-        }
+        //var jsonString = File.ReadAllText(HIGH_SCORES_PATH);
+        //if (!string.IsNullOrEmpty(jsonString))
+        //{
+        //    highScores = JsonSerializer.Deserialize<List<HighScoreViewModel>>(jsonString);
+        //}
 
         if (withZeros)
         {
@@ -157,7 +158,7 @@ public partial class MainWindowViewModel : ObservableObject
             {
                 var hs = new HighScoreViewModel();
                 hs.Score = 0;
-                hs.Name = String.Empty;
+                hs.Name = string.Empty;
                 highScores.Add(hs);
             }
         }
@@ -188,7 +189,7 @@ public partial class MainWindowViewModel : ObservableObject
                 var move = _nextMoves.Dequeue();
                 _currentDirection = move.Direction;
                 CheckIfSnakeEatSelf(move.Xpos, move.Ypos);
-                //CheckIfSnakeHitWall(move.Xpos, move.Ypos);
+                CheckIfSnakeHitWall(move.Xpos, move.Ypos);
                 if (!GameOver)
                 {
                     MoveSnake(move.Xpos, move.Ypos);
@@ -207,6 +208,8 @@ public partial class MainWindowViewModel : ObservableObject
             Cancellation.Dispose();
             return;
         }
+
+        GameoverAction?.Invoke();
 
         var highScores = LoadHighScores(true);
         var hs = new HighScoreViewModel();
@@ -412,7 +415,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         CheckIfSnakeEatSelf(xPos, yPos);
-        //CheckIfSnakeHitWall(xPos, yPos);
+        CheckIfSnakeHitWall(xPos, yPos);
         if (!GameOver)
         {
             MoveSnake(xPos, yPos);

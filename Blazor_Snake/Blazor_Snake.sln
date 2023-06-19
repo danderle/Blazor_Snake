@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor_Snake", "Blazor_Snak
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake.Core", "..\Snake.Core\Snake.Core.csproj", "{59D1D3C6-075A-4667-98FE-6255C60E486F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDbAccess", "..\MongoDbAccess\MongoDbAccess.csproj", "{F6E11D80-3763-4DF3-A729-A0B2B0997810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighScoreApi", "..\HighScoreApi\HighScoreApi.csproj", "{355450D6-36B3-42D8-8292-2C105BC4DA54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{59D1D3C6-075A-4667-98FE-6255C60E486F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59D1D3C6-075A-4667-98FE-6255C60E486F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59D1D3C6-075A-4667-98FE-6255C60E486F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E11D80-3763-4DF3-A729-A0B2B0997810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E11D80-3763-4DF3-A729-A0B2B0997810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E11D80-3763-4DF3-A729-A0B2B0997810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E11D80-3763-4DF3-A729-A0B2B0997810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,15 +19,15 @@
 }
 
 .game__snake_body1 {
-    background-color: green;
+    background-color: #00ff00;
 }
 
 .game__snake_body2 {
-    background-color: lime;
+    background-color: #00c800;
 }
 
 .game__snake_body3 {
-    background-color: lawngreen;
+    background-color: #009600;
 }
 
 .game__empty_cell{
