@@ -19,7 +19,13 @@ public class DataAccess : IDataAccess
     public async Task<List<HighScoreModel>> GetHighScoresAsync()
     {
         var scoreCollection = ConnectToMongo<HighScoreModel>(HighScoreCollection);
-        var results = await scoreCollection.FindAsync(item => true);
+        var filter = Builders<HighScoreModel>.Filter.Empty;
+        var sort = Builders<HighScoreModel>.Sort.Descending("Score");
+        var results = await scoreCollection.FindAsync(filter, new FindOptions<HighScoreModel, HighScoreModel>
+        {
+            Sort = sort,
+        });
+
         return results.ToList();
     }
 

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
+using HighScoresApiClient;
+using MongoDbData.Data;
 using Snake.Core.DataModels;
 using Snake.Core.Models;
 using Snake.Core.ViewModels;
@@ -103,12 +103,9 @@ public partial class MainWindowViewModel : ObservableObject
     /// Shows the high scores
     /// </summary>
     [RelayCommand]
-    private void ShowHighScores()
+    public async Task ShowHighScores()
     {
-        HighScoresVisible = true;
-        MainMenuVisible = false;
-
-        var hs = LoadHighScores();
+        var hs = await LoadHighScores();
         HighScores = new ObservableCollection<HighScoreViewModel>(hs);
     }
 
@@ -139,18 +136,78 @@ public partial class MainWindowViewModel : ObservableObject
         Task.Run(() => GameLoop());
     }
 
+    public async Task AddNewHighScoreToList(int score)
+    {
+        var highScores = await LoadHighScores(true);
+        var hs = new HighScoreViewModel();
+        hs.Score = score;
+        hs.IsOldScore = false;
+        hs.Focus = true;
+
+        if (score > highScores.Last().Score)
+        {
+            if (score > highScores.First().Score)
+            {
+                highScores.Insert(0, hs);
+            }
+            else
+            {
+                bool scoreAdded = false;
+                for (int i = highScores.Count - 1; i >= 0; i--)
+                {
+                    if (score <= highScores[i].Score)
+                    {
+                        highScores.Insert(i + 1, hs);
+                        scoreAdded = true;
+                        break;
+                    }
+                }
+
+                if (!scoreAdded)
+                {
+                    highScores.Add(hs);
+                }
+            }
+
+            if (highScores.Count > 10)
+            {
+                highScores.RemoveAt(10);
+            }
+
+            while (highScores.Last().Score == 0)
+            {
+                highScores.Remove(highScores.Last());
+            }
+        }
+
+        HighScores = new ObservableCollection<HighScoreViewModel>(highScores);
+        HighScoresVisible = true;
+    }
+
+    public async void SaveHighScoreToDb(string name, int score)
+    {
+        var highScore = new HighScoreModel()
+        {
+            Name = name.ToUpper(),
+            Score = score
+        };
+
+        var result = await HighScoresRequests.SaveHighScore(highScore);
+    }
+
     #endregion
 
     #region Methods
 
-    private List<HighScoreViewModel> LoadHighScores(bool withZeros = false)
+    private async Task<List<HighScoreViewModel>> LoadHighScores(bool withZeros = false)
     {
         var highScores = new List<HighScoreViewModel>();
-        //var jsonString = File.ReadAllText(HIGH_SCORES_PATH);
-        //if (!string.IsNullOrEmpty(jsonString))
-        //{
-        //    highScores = JsonSerializer.Deserialize<List<HighScoreViewModel>>(jsonString);
-        //}
+        var list = await HighScoresRequests.LoadHighScores();
+        list.ForEach(item => highScores.Add(new HighScoreViewModel
+        {
+            Name = item.Name,
+            Score = item.Score,
+        }));
 
         if (withZeros)
         {
@@ -211,50 +268,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         GameoverAction?.Invoke();
 
-        var highScores = LoadHighScores(true);
-        var hs = new HighScoreViewModel();
-        hs.Score = Score;
-        hs.IsOldScore = false;
-        hs.Focus = true;
-
-        if (Score > highScores.Last().Score)
-        {
-            if (Score > highScores.First().Score)
-            {
-                highScores.Insert(0, hs);
-            }
-            else
-            {
-                bool scoreAdded = false;
-                for (int i = highScores.Count - 1; i >= 0; i--)
-                {
-                    if (Score <= highScores[i].Score)
-                    {
-                        highScores.Insert(i + 1, hs);
-                        scoreAdded = true;
-                        break;
-                    }
-                }
-
-                if (!scoreAdded)
-                {
-                    highScores.Add(hs);
-                }
-            }
-
-            if (highScores.Count > 10)
-            {
-                highScores.RemoveAt(10);
-            }
-
-            while (highScores.Last().Score == 0)
-            {
-                highScores.Remove(highScores.Last());
-            }
-        }
-
-        HighScores = new ObservableCollection<HighScoreViewModel>(highScores);
-        HighScoresVisible = true;
+        
     }
 
     private void JsKeyUp(int code)

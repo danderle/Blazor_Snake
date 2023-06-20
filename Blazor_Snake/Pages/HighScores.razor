@@ -1,31 +1,79 @@
 ﻿@using HighScoresApiClient;
 @using MongoDbData.Data;
+@inject MainWindowViewModel Vm;
 @page "/highScores"
+@page "/highScores/{NewScore:int}"
 
 <PageTitle>High scores</PageTitle>
 
 <div class="highScore_menu__container">
     <h1 class="highScore__title">High Scores</h1>
     <div class="highScore__container">
-        @for(int i = 0; i < 10; i++)
+        @foreach(var hs in Vm.HighScores)
         {
-            <div class="highScore__line">
-                <p class="highScore__text">Den</p>
-                <p class="highScore__text">20</p>
-            </div>
+            if (hs.IsOldScore)
+            {
+                <div class="highScore__line">
+                    <p class="highScore__text">@hs.Name</p>
+                    <p class="highScore__text">@hs.Score</p>
+                </div>
+            }
+            else
+            {
+                <div class="highScore__line">
+                    <input maxlength="3" type="text" class="highScore__input" @bind=Name @ref=inputRef/>
+                    <p class="highScore__text">@hs.Score</p>
+                </div>
+            }
         }
     </div>
-    <a class="standard__button" href="/">Main menu</a>
+    <a class="standard__button" href="/" @onclick=SaveHighScore>Main menu</a>
 </div>
 
 @code{
+
+    [Parameter]
+    public int NewScore { get; set; }
+    public string Name { get; set; }
+    private ElementReference inputRef = new ElementReference();
+
     protected override async Task OnInitializedAsync()
     {
-        var highScore = new HighScoreModel();
-        highScore.Name = "BlazorTest";
-        highScore.Score = 100;
-        var result = await HighScoresRequests.SaveHighScore(highScore);
+        if(NewScore > 0)
+        {
+            await Vm.AddNewHighScoreToList(NewScore);
+        }
+        else
+        {
+            await Vm.ShowHighScores();
+        }
 
-        var list = await HighScoresRequests.LoadHighScores();
+        StateHasChanged();
+        SetFocusToInput();
+    }
+
+    private async void SetFocusToInput()
+    {
+        var highScore = Vm.HighScores.FirstOrDefault(item => !item.IsOldScore);
+        if(highScore != null)
+        {
+            try
+            {
+                await inputRef.FocusAsync();
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+    }
+
+    private void SaveHighScore()
+    {
+        var highScore = Vm.HighScores.FirstOrDefault(item => !item.IsOldScore && !string.IsNullOrEmpty(Name));
+        if (highScore != null)
+        {
+            Vm.SaveHighScoreToDb(Name, NewScore);
+        }
     }
 }

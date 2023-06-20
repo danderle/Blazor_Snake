@@ -47,7 +47,7 @@
     {
         Vm.Play();
         Vm.UiUpdateAction = Update;
-        Vm.GameoverAction = () => NavManager.NavigateTo("/highScores");
+        Vm.GameoverAction = () => NavManager.NavigateTo($"/highScores/{Vm.Score}");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

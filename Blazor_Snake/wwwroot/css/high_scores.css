@@ -35,3 +35,20 @@
     margin: 0 var(--size-6xl);
     font-size: var(--size-base);
 }
+
+.highScore__input {
+    margin: 0 var(--size-6xl);
+    color: green;
+    border: 0 solid;
+    text-decoration: underline;
+    text-transform: uppercase;
+    background-color: hsl(255, 2%, 10%);
+}
+
+.highScore__input:focus {
+    border: 0 solid;
+    outline: none;
+    text-decoration: underline;
+    text-transform: uppercase;
+    background-color: black;
+}
