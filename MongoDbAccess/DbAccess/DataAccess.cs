@@ -1,10 +1,5 @@
 ﻿using MongoDB.Driver;
-using MongoDbAccess.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDbData.Data;
 
 namespace MongoDbAccess.DbAccess;
 

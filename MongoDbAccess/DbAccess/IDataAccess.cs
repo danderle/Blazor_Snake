@@ -1,10 +1,9 @@
-﻿using MongoDbAccess.Data;
+﻿using MongoDbData.Data;
 
-namespace MongoDbAccess.DbAccess
+namespace MongoDbAccess.DbAccess;
+
+public interface IDataAccess
 {
-    public interface IDataAccess
-    {
-        Task CreateHighScoreAsync(HighScoreModel highScore);
-        Task<List<HighScoreModel>> GetHighScoresAsync();
-    }
+    Task CreateHighScoreAsync(HighScoreModel highScore);
+    Task<List<HighScoreModel>> GetHighScoresAsync();
 }

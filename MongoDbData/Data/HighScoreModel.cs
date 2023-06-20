@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MongoDbAccess.Data;
+namespace MongoDbData.Data;
 
 public class HighScoreModel
 {

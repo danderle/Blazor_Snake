@@ -1,4 +1,4 @@
-﻿using MongoDbAccess.Data;
+﻿using MongoDbData.Data;
 using MongoDbAccess.DbAccess;
 
 namespace HighScoreApi
