@@ -1,4 +1,6 @@
-﻿@page "/highScores"
+﻿@using HighScoresApiClient;
+@using MongoDbData.Data;
+@page "/highScores"
 
 <PageTitle>High scores</PageTitle>
 
@@ -15,3 +17,15 @@
     </div>
     <a class="standard__button" href="/">Main menu</a>
 </div>
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        var highScore = new HighScoreModel();
+        highScore.Name = "BlazorTest";
+        highScore.Score = 100;
+        var result = await HighScoresRequests.SaveHighScore(highScore);
+
+        var list = await HighScoresRequests.LoadHighScores();
+    }
+}

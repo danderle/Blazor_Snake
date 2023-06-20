@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor_Snake", "Blazor_Snak
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake.Core", "..\Snake.Core\Snake.Core.csproj", "{59D1D3C6-075A-4667-98FE-6255C60E486F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDbAccess", "..\MongoDbAccess\MongoDbAccess.csproj", "{F6E11D80-3763-4DF3-A729-A0B2B0997810}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDbAccess", "..\MongoDbAccess\MongoDbAccess.csproj", "{F6E11D80-3763-4DF3-A729-A0B2B0997810}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighScoreApi", "..\HighScoreApi\HighScoreApi.csproj", "{355450D6-36B3-42D8-8292-2C105BC4DA54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighScoreApi", "..\HighScoreApi\HighScoreApi.csproj", "{355450D6-36B3-42D8-8292-2C105BC4DA54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighScoresApiClient", "..\HighScoresApiClient\HighScoresApiClient.csproj", "{5783B846-CB2B-475A-BF3F-25243FE6125A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDbData", "..\MongoDbData\MongoDbData.csproj", "{16B13833-08B1-4C1B-AA6E-C32D2C2B7801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{355450D6-36B3-42D8-8292-2C105BC4DA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5783B846-CB2B-475A-BF3F-25243FE6125A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5783B846-CB2B-475A-BF3F-25243FE6125A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5783B846-CB2B-475A-BF3F-25243FE6125A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5783B846-CB2B-475A-BF3F-25243FE6125A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B13833-08B1-4C1B-AA6E-C32D2C2B7801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B13833-08B1-4C1B-AA6E-C32D2C2B7801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B13833-08B1-4C1B-AA6E-C32D2C2B7801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B13833-08B1-4C1B-AA6E-C32D2C2B7801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

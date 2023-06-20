@@ -295,48 +295,6 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// The window key up event notifies us that a key was let go
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void _window_KeyUp(object sender, KeyboardEventArgs e)
-    {
-        int xPos = 0;
-        int yPos = 0;
-        Direction newDirecton = Direction.LEFT;
-
-        switch (e.Code)
-        {
-            //case Key.Left:
-            //    if (_currentDirection == Direction.RIGHT && Snake.Count > 2)
-            //        return;
-            //    xPos -= CellViewModel.CELL_SIZE;
-            //    newDirecton = Direction.LEFT;
-            //    break;
-            //case Key.Up:
-            //    if (_currentDirection == Direction.DOWN && Snake.Count > 2)
-            //        return;
-            //    yPos -= CellViewModel.CELL_SIZE;
-            //    newDirecton = Direction.UP;
-            //    break;
-            //case Key.Right:
-            //    if (_currentDirection == Direction.LEFT && Snake.Count > 2)
-            //        return;
-            //    xPos += CellViewModel.CELL_SIZE;
-            //    newDirecton = Direction.RIGHT;
-            //    break;
-            //case Key.Down:
-            //    if (_currentDirection == Direction.UP && Snake.Count > 2)
-            //        return;
-            //    yPos += CellViewModel.CELL_SIZE;
-            //    newDirecton = Direction.DOWN;
-            //    break;
-        }
-
-        _nextMoves.Enqueue(new NextMove(xPos, yPos, newDirecton));
-    }
-
-    /// <summary>
     /// Checks if the snake will hit a wall
     /// </summary>
     /// <param name="xPos"></param>
